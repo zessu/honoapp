@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run index.ts"
+    "dev": "bun run --watch index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -16,10 +16,12 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.4.3",
     "better-auth": "^1.2.4",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.40.0",
     "hono": "^4.7.4",
-    "pg": "^8.14.0"
+    "pg": "^8.14.0",
+    "zod": "^3.24.2"
   }
 }

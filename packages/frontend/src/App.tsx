@@ -1,7 +1,11 @@
+import { TotalSpent } from "./common/components/TotalSpent";
+
 function App() {
   return (
     <>
-      <button className="btn">Here is a button</button>
+      <div className="bg-outline h-full flex justify-center">
+        <TotalSpent />
+      </div>
     </>
   );
 }
