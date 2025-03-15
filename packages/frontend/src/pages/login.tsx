@@ -9,7 +9,7 @@ const userSignUpSchema = z.object({
 type userSignup = z.infer<typeof userSignUpSchema>;
 
 const signUp = async ({ email, password }: userSignup) => {
-  const { data, error } = await authClient.login.email(
+  const { data, error } = await authClient.signIn.email(
     {
       email, // user email address
       password, // user password -> min 8 characters by default
@@ -30,7 +30,7 @@ const signUp = async ({ email, password }: userSignup) => {
   );
 };
 
-export const SignUp = () => {
+export const Login = () => {
   return (
     <>
       <div className="flex flex-col border-red border-1 gap-2 mt-10">
