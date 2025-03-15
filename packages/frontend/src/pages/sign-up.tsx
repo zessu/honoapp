@@ -36,7 +36,7 @@ const signUp = async ({ email, password, name }: userSignup) => {
 export const SignUp = () => {
   return (
     <>
-      <div className="flex flex-col border-red border-1 gap-2 mt-10">
+      <div className="flex flex-col items-center gap-2 mt-10 w-3/4">
         <input type="text" placeholder="Name" className="input" />
         <input type="password" placeholder="Password" className="input" />
         <input
@@ -44,7 +44,7 @@ export const SignUp = () => {
           placeholder="Confirm Password"
           className="input"
         />
-        <button className="btn bg-black text-white border-black">
+        <button className="btn bg-black text-white border-black mt-5">
           Sign up
         </button>
         <button className="btn btn-link">Or Login</button>

@@ -33,10 +33,12 @@ const signUp = async ({ email, password }: userSignup) => {
 export const Login = () => {
   return (
     <>
-      <div className="flex flex-col border-red border-1 gap-2 mt-10">
+      <div className="flex flex-col items-center gap-2 mt-10 w-3/4">
         <input type="text" placeholder="Email" className="input" />
         <input type="password" placeholder="Password" className="input" />
-        <button className="btn bg-black text-white border-black">Login</button>
+        <button className="btn bg-black text-white border-black mt-5">
+          Login
+        </button>
         <button className="btn btn-link">Or Sign up</button>
       </div>
     </>

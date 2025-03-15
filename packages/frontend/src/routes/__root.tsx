@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Outlet, createRootRoute, Link } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
@@ -9,7 +8,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <div className="p-2 flex gap-2">
+      <div className="p-2 flex gap-2 py-5">
         <Link to="/" className="[&.active]:font-bold">
           Home
         </Link>{" "}
@@ -21,7 +20,9 @@ function RootComponent() {
         </Link>
       </div>
       <hr />
-      <Outlet />
+      <div className="flex flex-col items-center h-screen">
+        <Outlet />
+      </div>
       <TanStackRouterDevtools />
     </>
   );
