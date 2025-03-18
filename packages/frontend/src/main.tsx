@@ -14,13 +14,15 @@ declare module "@tanstack/react-router" {
   }
 }
 
+type SessionType = Awaited<ReturnType<typeof authClient.getSession>>;
+
 function AuthenticatedUser() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<SessionType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const { data: session } = await authClient.getSession();
+        const session: SessionType = await authClient.getSession();
         console.log(session);
         if (session) setSession(session);
       } catch (error) {
