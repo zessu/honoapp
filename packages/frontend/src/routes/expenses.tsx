@@ -1,14 +1,12 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/expenses")({
   beforeLoad: async ({ context }) => {
-    if (!context.session) {
-      throw redirect({ to: "/login" });
-    }
+    if (!context.session) redirect({ to: "/login" });
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <div>Welcome to the dashboard</div>;
+  return <div>Hello "/expenses"!</div>;
 }

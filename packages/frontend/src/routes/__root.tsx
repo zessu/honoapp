@@ -1,8 +1,14 @@
-import { Outlet, createRootRoute, Link } from "@tanstack/react-router";
+import {
+  Outlet,
+  createRootRouteWithContext,
+  Link,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-export const Route = createRootRoute({
-  component: RootComponent,
+type MyAuthContext = { session: any };
+
+export const Route = createRootRouteWithContext<MyAuthContext>()({
+  component: () => RootComponent(),
 });
 
 function RootComponent() {
@@ -20,6 +26,12 @@ function RootComponent() {
           </Link>
           <Link to="/signup" className="[&.active]:font-bold">
             Sign up
+          </Link>
+          <Link to="/expenses" className="[&.active]:font-bold">
+            All Expenses
+          </Link>
+          <Link to="/newexpense" className="[&.active]:font-bold">
+            New Expense
           </Link>
         </div>
       </div>

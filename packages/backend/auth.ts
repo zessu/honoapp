@@ -15,4 +15,22 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: ["http://localhost:5173"],
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 30 * 60,
+    },
+  },
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: "http://localhost:5173",
+      defaultCookieAttributes: {
+        secure: true,
+        httpOnly: true,
+        sameSite: "none", // Allows CORS-based cookie sharing across subdomains
+        partitioned: true, // New browser standards will mandate this for foreign cookies
+      },
+    },
+  },
 });
