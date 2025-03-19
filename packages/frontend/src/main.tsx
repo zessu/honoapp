@@ -23,12 +23,10 @@ function AuthenticatedUser() {
     const fetchSession = async () => {
       try {
         const session: SessionType = await authClient.getSession();
-        console.log(session);
         if (session) setSession(session);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
