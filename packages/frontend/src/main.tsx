@@ -1,7 +1,7 @@
-import { StrictMode, useEffect, useState } from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { authClient } from "./lib/auth-client";
+import { useAuth, AuthProvider } from "./authContext";
 
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
@@ -14,26 +14,8 @@ declare module "@tanstack/react-router" {
   }
 }
 
-type SessionType = Awaited<ReturnType<typeof authClient.getSession>>;
-
 function AuthenticatedUser() {
-  const [session, setSession] = useState<SessionType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const session: SessionType = await authClient.getSession();
-        if (session) setSession(session);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchSession();
-  }, []);
-
-  if (isLoading) return <div>Logging you in ! Wait a second</div>;
+  const session = useAuth();
   return <RouterProvider router={router} context={{ session }} />;
 }
 
@@ -42,7 +24,9 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <AuthenticatedUser></AuthenticatedUser>
+      <AuthProvider>
+        <AuthenticatedUser />
+      </AuthProvider>
     </StrictMode>
   );
 }
