@@ -10,7 +10,7 @@ const userSignUpSchema = z.object({
 type userSignup = z.infer<typeof userSignUpSchema>;
 
 export const authClient = createAuthClient({
-  baseURL: "http://localhost:3000",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export const isAuthenticated = async () => {
@@ -22,7 +22,7 @@ export const isAuthenticated = async () => {
 export const signUpWithGoogle = async () => {
   const data = await authClient.signIn.social({
     provider: "google",
-    callbackURL: "http://localhost:5173",
+    callbackURL: "/",
   });
   console.log(data);
   return data;
@@ -38,7 +38,7 @@ export const signUpWithEmail = async ({
       email,
       password,
       name,
-      callbackURL: "/dashboard",
+      callbackURL: "/",
     },
     {
       onSuccess: () => {

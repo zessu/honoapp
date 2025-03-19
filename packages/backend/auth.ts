@@ -14,7 +14,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-  trustedOrigins: ["http://localhost:5173"],
+  trustedOrigins: [`${process.env.LOCAL_DOMAIN}`],
   session: {
     cookieCache: {
       enabled: true,
@@ -24,7 +24,7 @@ export const auth = betterAuth({
   advanced: {
     crossSubDomainCookies: {
       enabled: true,
-      domain: "http://localhost:5173",
+      domain: `${process.env.LOCAL_DOMAIN}`,
       defaultCookieAttributes: {
         secure: true,
         httpOnly: true,
