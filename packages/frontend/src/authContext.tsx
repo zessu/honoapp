@@ -32,7 +32,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={session}>
-      {!loading && children}
+      {loading ? (
+        <div className="text-red border-1 border-white flex flex-row gap-2 items-center justify-center h-screen">
+          <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-current" />
+          <div>Loading your data ...</div>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };
