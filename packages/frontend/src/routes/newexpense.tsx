@@ -1,4 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { NewExpense } from "../pages/newExpense";
 
 export const Route = createFileRoute("/newexpense")({
   beforeLoad: async ({ context }) => {
@@ -8,5 +9,5 @@ export const Route = createFileRoute("/newexpense")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/newexpense"!</div>;
+  return <NewExpense />;
 }
