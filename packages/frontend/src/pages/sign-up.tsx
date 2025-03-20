@@ -1,6 +1,7 @@
-import { signUpWithGoogle } from "../lib/auth-client";
+import { useAuth } from "../authContext";
 
 export const SignUp = () => {
+  const context = useAuth();
   return (
     <>
       <div className="flex flex-col items-center gap-2 mt-10 w-3/4">
@@ -17,7 +18,7 @@ export const SignUp = () => {
         <button className="btn btn-link">Or Login</button>
         <button
           className="btn bg-white text-black border-[#e5e5e5]"
-          onClick={signUpWithGoogle}
+          onClick={context.signUpWithGoogle}
         >
           <svg
             aria-label="Google logo"

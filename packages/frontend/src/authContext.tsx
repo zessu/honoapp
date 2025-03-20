@@ -2,18 +2,21 @@ import { useContext, createContext, useState, useEffect } from "react";
 import { authClient } from "./lib/auth-client";
 import { ReactNode } from "@tanstack/react-router";
 
-type AuthContextType = Awaited<ReturnType<typeof authClient.getSession>>;
+type getSession = Awaited<ReturnType<typeof authClient.getSession>>;
+type signUpWithGoogle = Awaited<ReturnType<typeof authClient.signIn.social>>;
+type AuthContextType = {
+  session: getSession;
+  signUpWithGoogle: signUpWithGoogle;
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [session, setSession] = useState<AuthContextType | undefined>(
-    undefined
-  );
+  const [session, setSession] = useState<getSession | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSession = async (): Promise<AuthContextType> => {
+    const fetchSession = async (): Promise<getSession> => {
       try {
         const data = await authClient.getSession();
         if (data) {
@@ -30,8 +33,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     fetchSession();
   }, []);
 
+  const signUpWithGoogle = async () => {
+    return await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
+
   return (
-    <AuthContext.Provider value={session}>
+    <AuthContext.Provider value={{ session, signUpWithGoogle }}>
       {loading ? (
         <div className="text-red border-1 border-white flex flex-row gap-2 items-center justify-center h-screen">
           <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-current" />
