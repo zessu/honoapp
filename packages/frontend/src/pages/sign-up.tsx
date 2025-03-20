@@ -18,7 +18,7 @@ export const SignUp = () => {
         <button className="btn btn-link">Or Login</button>
         <button
           className="btn bg-white text-black border-[#e5e5e5]"
-          onClick={context.signUpWithGoogle}
+          onClick={context.signIn}
         >
           <svg
             aria-label="Google logo"

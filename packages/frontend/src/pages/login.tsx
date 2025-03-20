@@ -1,36 +1,7 @@
-import { authClient } from "../lib/auth-client"; //import the auth client
-import { z } from "zod";
-
-const userSignUpSchema = z.object({
-  password: z.string().min(8),
-  email: z.string().email(),
-});
-
-type userSignup = z.infer<typeof userSignUpSchema>;
-
-const signUp = async ({ email, password }: userSignup) => {
-  const { data, error } = await authClient.signIn.email(
-    {
-      email, // user email address
-      password, // user password -> min 8 characters by default
-      callbackURL: "/dashboard", // a url to redirect to after the user verifies their email (optional)
-    },
-    {
-      onRequest: (ctx) => {
-        //show loading
-      },
-      onSuccess: (ctx) => {
-        //redirect to the dashboard or sign in page
-      },
-      onError: (ctx) => {
-        // display the error message
-        alert(ctx.error.message);
-      },
-    }
-  );
-};
+import { useAuth } from "../authContext";
 
 export const Login = () => {
+  const context = useAuth();
   return (
     <>
       <div className="flex flex-col items-center gap-2 mt-10 w-3/4">
@@ -41,7 +12,10 @@ export const Login = () => {
         </button>
         <button className="btn btn-link">Or Sign up</button>
 
-        <button className="btn bg-white text-black border-[#e5e5e5]">
+        <button
+          className="btn bg-white text-black border-[#e5e5e5]"
+          onClick={context.signIn}
+        >
           <svg
             aria-label="Google logo"
             width="16"

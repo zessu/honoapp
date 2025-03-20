@@ -3,10 +3,11 @@ import { authClient } from "./lib/auth-client";
 import { ReactNode } from "@tanstack/react-router";
 
 type getSession = Awaited<ReturnType<typeof authClient.getSession>>;
-type signUpWithGoogle = Awaited<ReturnType<typeof authClient.signIn.social>>;
+type googleSignIn = Awaited<ReturnType<typeof authClient.signIn.social>>;
+
 type AuthContextType = {
   session: getSession;
-  signUpWithGoogle: signUpWithGoogle;
+  signIn: googleSignIn;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,7 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     fetchSession();
   }, []);
 
-  const signUpWithGoogle = async () => {
+  const googleSignIn = async () => {
     return await authClient.signIn.social({
       provider: "google",
       callbackURL: "/",
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, signUpWithGoogle }}>
+    <AuthContext.Provider value={{ session, signIn: googleSignIn }}>
       {loading ? (
         <div className="text-red border-1 border-white flex flex-row gap-2 items-center justify-center h-screen">
           <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-current" />
