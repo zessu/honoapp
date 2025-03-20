@@ -6,6 +6,7 @@ import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   const apiBaseUrl = env.VITE_API_BASE_URL;
+  console.log(env);
 
   if (!apiBaseUrl) {
     throw new Error("VITE_API_BASE_URL is not defined in the environment.");
@@ -17,13 +18,5 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
     ],
-    server: {
-      proxy: {
-        "/api": {
-          target: apiBaseUrl,
-          changeOrigin: true,
-        },
-      },
-    },
   };
 });
