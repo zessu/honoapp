@@ -1,12 +1,15 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { useAuth, AuthProvider } from "./authContext";
 
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({ routeTree, context: { session: undefined! } });
+const queryClient = new QueryClient();
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -25,7 +28,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <AuthProvider>
-        <AuthenticatedUser />
+        <QueryClientProvider client={queryClient}>
+          <AuthenticatedUser />
+        </QueryClientProvider>
       </AuthProvider>
     </StrictMode>
   );

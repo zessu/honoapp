@@ -5,6 +5,8 @@ import { expense as expenseRouter } from "./routes/expense";
 
 const app = new Hono();
 
+//TODO: Add middleware to log out user if session is invalid
+
 app
   .use(
     "/api/*",

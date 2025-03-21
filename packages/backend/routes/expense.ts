@@ -1,22 +1,29 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { auth } from "../auth";
 
 const expenseSchema = z.object({
-  amount: z.number().positive(),
-  description: z.string(),
+  amount: z.number(),
+  description: z.string().min(10),
+  content: z.number(),
+  name: z.string().min(3),
 });
 
+// TODO: show all expenses for a certain user
+// TODO: create a new expense
+// TODO: grab total expenses for a certain user
+
 export const expense = new Hono()
-  .get("/", (c) => c.text("Here are your expenses"))
+  .get("/", async (c) => {
+    return c.text("Here are your expenses");
+  })
   .get("/totalExpenses", async (c) => {
     return c.json({ amount: 10000 });
   })
-  .get(":id", async (c) => {
-    const { id } = c.req.param();
-    return c.text(`Your supplied id was ${id}`);
-  })
-  .post("", zValidator("json", expenseSchema), async (c) => {
+  .post("/newExpense", zValidator("json", expenseSchema), async (c) => {
     const data = c.req.valid("json");
-    return c.text("Expense created");
+    const session = await auth.api.getSession({ headers: c.req.raw.headers });
+    console.log(session?.user);
+    return c.json(data);
   });
