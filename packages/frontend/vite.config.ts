@@ -24,6 +24,7 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
         "@components": path.resolve(__dirname, "./src/common/components"),
         "@assets": path.resolve(__dirname, "./src/assets"),
+        "@api": path.resolve(__dirname, "./src/api"),
       },
     },
   };
