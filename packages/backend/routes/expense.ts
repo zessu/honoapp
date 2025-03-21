@@ -1,7 +1,12 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { eq, sum } from "drizzle-orm";
+import { randomUUIDv7 } from "bun";
+
 import { auth } from "../auth";
+import { db } from "../src/db";
+import { expensesTable } from "../src/db/schema";
 
 const expenseSchema = z.object({
   amount: z.number(),
@@ -10,20 +15,34 @@ const expenseSchema = z.object({
   name: z.string().min(3),
 });
 
-// TODO: show all expenses for a certain user
-// TODO: create a new expense
-// TODO: grab total expenses for a certain user
-
 export const expense = new Hono()
   .get("/", async (c) => {
-    return c.text("Here are your expenses");
+    return c.text("Hi");
   })
-  .get("/totalExpenses", async (c) => {
-    return c.json({ amount: 10000 });
-  })
+  .get(
+    "/totalExpenses/:id",
+    zValidator("param", z.object({ id: z.string() })),
+    async (c) => {
+      const { id: userId } = c.req.valid("param");
+      const res = await db
+        .select({ count: sum(expensesTable.amount) })
+        .from(expensesTable)
+        .where(eq(expensesTable.userId, userId))
+        .limit(1);
+      return c.json(res[0]?.count ?? 0);
+    }
+  )
   .post("/newExpense", zValidator("json", expenseSchema), async (c) => {
     const data = c.req.valid("json");
     const session = await auth.api.getSession({ headers: c.req.raw.headers });
-    console.log(session?.user);
-    return c.json(data);
+    if (!session || !session.user.id) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+    const userId = session.user.id;
+    const expenseId = randomUUIDv7();
+    const res = await db
+      .insert(expensesTable)
+      .values({ ...data, userId, id: expenseId })
+      .returning();
+    return c.json(res[0]);
   });

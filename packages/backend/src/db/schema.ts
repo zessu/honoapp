@@ -1,8 +1,13 @@
-import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, varchar, text } from "drizzle-orm/pg-core";
+import { user } from "../../auth-schema";
 
-export const usersTable = pgTable("users", {
-  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+export const expensesTable = pgTable("expenses", {
+  id: text("id").primaryKey(),
   name: varchar({ length: 255 }).notNull(),
-  age: integer().notNull(),
-  email: varchar({ length: 255 }).notNull().unique(),
+  description: varchar({ length: 255 }).notNull(),
+  amount: integer().notNull(),
+  content: integer().notNull(),
+  userId: text()
+    .notNull()
+    .references(() => user.id),
 });
