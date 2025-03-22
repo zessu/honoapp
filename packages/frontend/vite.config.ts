@@ -19,6 +19,9 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
     ],
+    build: {
+      sourcemap: true,
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

@@ -2,13 +2,33 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "msedge", // or "firefox"
+      "type": "msedge",
       "request": "launch",
-      "name": "Debug Frontend",
+      "name": "Debug Frontend (Edge)",
       "url": "http://localhost:5173/",
-      "webRoot": "${workspaceFolder}/src",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
       "sourceMapPathOverrides": {
-        "/*": "${webRoot}/*"
+        "webpack:///src/*": "${webRoot}/src/*",
+        "/./*": "${webRoot}/*",
+        "/src/*": "${webRoot}/src/*",
+        "/*": "${webRoot}/*",
+        "/./~/*": "${webRoot}/node_modules/*"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Debug Frontend (Chrome)",
+      "url": "http://localhost:5173/",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/src/*",
+        "/./*": "${webRoot}/*",
+        "/src/*": "${webRoot}/src/*",
+        "/*": "${webRoot}/*",
+        "/./~/*": "${webRoot}/node_modules/*"
       }
     }
   ]

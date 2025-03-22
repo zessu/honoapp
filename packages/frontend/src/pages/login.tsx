@@ -2,6 +2,11 @@ import { useAuth } from "@/authContext";
 
 export const Login = () => {
   const context = useAuth();
+  const signInGoogle = async () => {
+    const data = await context.signIn();
+    console.log(">>>>>>>>>>>>>>");
+    console.log(data);
+  };
   return (
     <>
       <div className="flex flex-col items-center gap-2 mt-10 w-3/4">
@@ -14,7 +19,7 @@ export const Login = () => {
 
         <button
           className="btn bg-white text-black border-[#e5e5e5]"
-          onClick={context.signIn}
+          onClick={signInGoogle}
         >
           <svg
             aria-label="Google logo"
