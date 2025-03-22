@@ -3,7 +3,9 @@ import { NewExpense } from "@/pages/newExpense";
 
 export const Route = createFileRoute("/newexpense")({
   beforeLoad: async ({ context }) => {
-    if (!context.session) redirect({ to: "/login" });
+    if (!context.session.session.data) {
+      return redirect({ to: "/login" });
+    }
   },
   component: RouteComponent,
 });

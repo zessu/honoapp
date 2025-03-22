@@ -23,7 +23,7 @@ export const NewExpense = () => {
   const { isPending, isError, isSuccess, mutate } = useMutation({
     mutationFn: addExpense,
     onSuccess: () => console.log("new expense created"),
-    onError: () => console.log("there was an error adding that expense"),
+    onError: (error) => console.log(error),
   });
 
   const onSubmit: SubmitHandler<newExpense> = (data) => {
