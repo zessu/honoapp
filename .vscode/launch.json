@@ -4,31 +4,38 @@
     {
       "type": "msedge",
       "request": "launch",
-      "name": "Debug Frontend (Edge)",
-      "url": "http://localhost:5173/",
+      "name": "Launch Edge",
+      "url": "http://localhost:5173", // Use localhost for WSL compatibility
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+        "--user-data-dir=C:/temp/edge-debug" // Optional: Use a separate Edge profile for debugging
+      ],
       "sourceMapPathOverrides": {
-        "webpack:///src/*": "${webRoot}/src/*",
-        "/./*": "${webRoot}/*",
+        "/@fs/*": "${webRoot}/*",
+        "/@fs/home/kali/code/honoapp/*": "${workspaceFolder}/*",
         "/src/*": "${webRoot}/src/*",
-        "/*": "${webRoot}/*",
-        "/./~/*": "${webRoot}/node_modules/*"
+        "/*": "${webRoot}/*"
       }
     },
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Debug Frontend (Chrome)",
-      "url": "http://localhost:5173/",
+      "name": "Launch Chrome",
+      "url": "http://localhost:5173", // Use localhost for WSL compatibility
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
+      "runtimeExecutable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+        "--user-data-dir=C:/temp/chrome-debug" // Optional: Use a separate Chrome profile for debugging
+      ],
       "sourceMapPathOverrides": {
-        "webpack:///src/*": "${webRoot}/src/*",
-        "/./*": "${webRoot}/*",
+        "/@fs/*": "${webRoot}/*",
+        "/@fs/home/kali/code/honoapp/*": "${workspaceFolder}/*",
         "/src/*": "${webRoot}/src/*",
-        "/*": "${webRoot}/*",
-        "/./~/*": "${webRoot}/node_modules/*"
+        "/*": "${webRoot}/*"
       }
     }
   ]
