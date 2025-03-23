@@ -2,41 +2,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "msedge",
-      "request": "launch",
-      "name": "Launch Edge",
-      "url": "http://localhost:5173", // Use localhost for WSL compatibility
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "runtimeArgs": [
-        "--remote-debugging-port=9222",
-        "--user-data-dir=C:/temp/edge-debug" // Optional: Use a separate Edge profile for debugging
-      ],
-      "sourceMapPathOverrides": {
-        "/@fs/*": "${webRoot}/*",
-        "/@fs/home/kali/code/honoapp/*": "${workspaceFolder}/*",
-        "/src/*": "${webRoot}/src/*",
-        "/*": "${webRoot}/*"
-      }
-    },
-    {
       "type": "chrome",
-      "request": "launch",
-      "name": "Launch Chrome",
-      "url": "http://localhost:5173", // Use localhost for WSL compatibility
+      "request": "attach",
+      "name": "Attach to Chrome",
+      "port": 9223,
       "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "runtimeExecutable": "C:/Program Files/Google/Chrome/Application/chrome.exe",
-      "runtimeArgs": [
-        "--remote-debugging-port=9222",
-        "--user-data-dir=C:/temp/chrome-debug" // Optional: Use a separate Chrome profile for debugging
-      ],
       "sourceMapPathOverrides": {
-        "/@fs/*": "${webRoot}/*",
-        "/@fs/home/kali/code/honoapp/*": "${workspaceFolder}/*",
-        "/src/*": "${webRoot}/src/*",
-        "/*": "${webRoot}/*"
-      }
+        "webpack:///src/*": "${workspaceFolder}/src/*",
+        "/@fs/*": "${workspaceFolder}/*",
+        "/src/*": "${workspaceFolder}/src/*",
+        "/*": "${workspaceFolder}/*",
+        "/@vite/client": "${workspaceFolder}/node_modules/@vite/client",
+        "/@id/*": "${workspaceFolder}/*",
+        "http://localhost:5173/*": "${workspaceFolder}/*",
+        "/./*": "${workspaceFolder}/*",
+        "/./src/*": "${workspaceFolder}/src/*"
+      },
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"]
     }
   ]
 }
