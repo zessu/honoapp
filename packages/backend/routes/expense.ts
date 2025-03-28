@@ -8,6 +8,7 @@ import { auth } from "../auth";
 import { db } from "../src/db";
 import { expensesTable } from "../src/db/schema";
 
+//TODO: define this from the database object omiting the unneeded fields.
 const expenseSchema = z.object({
   amount: z.number(),
   description: z.string().min(10),
@@ -19,19 +20,20 @@ export const expense = new Hono()
   .get("/", async (c) => {
     return c.text("Hi");
   })
-  .get(
-    "/totalExpenses/:id",
-    zValidator("param", z.object({ id: z.string() })),
-    async (c) => {
-      const { id: userId } = c.req.valid("param");
-      const res = await db
-        .select({ count: sum(expensesTable.amount) })
-        .from(expensesTable)
-        .where(eq(expensesTable.userId, userId))
-        .limit(1);
-      return c.json(res[0]?.count ?? 0);
+  .get("/expenses", async (c) => {
+    const session = await auth.api.getSession({
+      headers: c.req.raw.headers,
+    });
+    if (!session || !session.user.id) {
+      return c.json({ error: "Unauthorized" }, 401);
     }
-  )
+    const userId = session.user.id;
+    const res = await db
+      .select()
+      .from(expensesTable)
+      .where(eq(expensesTable.userId, userId));
+    return c.json(res);
+  })
   .post("/newExpense", zValidator("json", expenseSchema), async (c) => {
     const data = c.req.valid("json");
     const session = await auth.api.getSession({ headers: c.req.raw.headers });
