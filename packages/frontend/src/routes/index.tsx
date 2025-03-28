@@ -2,8 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   beforeLoad: async ({ context }) => {
-    console.log(context.session);
-    if (!context.session.session.data) {
+    if (!context.session.session.data.user) {
       return redirect({ to: "/login" });
     }
   },
