@@ -20,7 +20,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const fetchSession = async (): Promise<getSession> => {
       try {
         const data = await authClient.getSession();
-        if (data) {
+        if (data.data) {
+          console.log(data.data?.user);
           setSession(data);
           setLoading(false);
         }
