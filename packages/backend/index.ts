@@ -9,7 +9,7 @@ const app = new Hono();
 
 app
   .use(
-    "/api/*",
+    "*",
     cors({
       origin: process.env.LOCAL_DOMAIN as string,
       credentials: true,

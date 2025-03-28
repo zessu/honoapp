@@ -2,11 +2,11 @@ import { useAuth } from "@/authContext";
 
 export const Login = () => {
   const context = useAuth();
+
   const signInGoogle = async () => {
-    const data = await context.signIn();
-    console.log(">>>>>>>>>>>>>>");
-    console.log(data);
+    await context.signIn();
   };
+
   return (
     <>
       <div className="flex flex-col items-center gap-2 mt-10 w-3/4">

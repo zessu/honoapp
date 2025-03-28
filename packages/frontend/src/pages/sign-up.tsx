@@ -47,7 +47,7 @@ export const SignUp = () => {
               ></path>
             </g>
           </svg>
-          Login with Google
+          Sign Up Google
         </button>
       </div>
     </>

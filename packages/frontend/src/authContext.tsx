@@ -35,11 +35,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const googleSignIn = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-      callbackURL: import.meta.env.VITE_APP_BASE_URL,
-    });
-    return data;
+    await authClient.signIn.social(
+      {
+        provider: "google",
+        callbackURL: import.meta.env.VITE_APP_BASE_URL,
+      },
+      {
+        onRequest: (ctx) => {},
+        onSuccess: (ctx) => {
+          console.log(ctx);
+        },
+        onError: (ctx) => {
+          alert("error signing you in");
+        },
+      }
+    );
   };
 
   return (
