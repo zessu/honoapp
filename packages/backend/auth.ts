@@ -24,13 +24,13 @@ export const auth = betterAuth({
   advanced: {
     crossSubDomainCookies: {
       enabled: true,
-      domain: `${process.env.LOCAL_DOMAIN}`,
-      defaultCookieAttributes: {
-        secure: true,
-        httpOnly: true,
-        sameSite: "none",
-        partitioned: true,
-      },
+      domain: "localhost",
+    },
+    defaultCookieAttributes: {
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
+      partitioned: true,
     },
   },
 });
