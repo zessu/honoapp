@@ -1,15 +1,24 @@
-# honoapp
+# Expense Tracker
 
-To install dependencies:
+**Tanstack Router, TanStack Query, Drizzle ORM, Zod, Hono, Supabase, TailwindCSS, DaisyUI, react-hook-form, postgres, bun, better-auth**
+
+Experimental PoC containing google authentication, routing, protected routes, conditionally rendered components and form validation
+
+Install bun [Bun](https://bun.sh/)
+
+Install dependencies:
 
 ```bash
 bun install
 ```
 
-To run:
+Make sure to create google OAuth client add add required keys to .env file then
 
 ```bash
-bun run index.ts
+cd packages/frontend && bun run dev
+cd packages/backend && bun run dev
+
 ```
 
-This project was created using `bun init` in bun v1.2.5. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+![Dashboard](./dash.png)
+![Add Expense](./add.png)
