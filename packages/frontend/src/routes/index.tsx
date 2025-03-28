@@ -11,5 +11,9 @@ export const Route = createFileRoute("/")({
 });
 
 function RouteComponent() {
-  return <Dashboard />;
+  return (
+    <div className="mt-10">
+      <Dashboard />
+    </div>
+  );
 }
