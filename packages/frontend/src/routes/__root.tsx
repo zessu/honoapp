@@ -1,3 +1,4 @@
+import { useAuth } from "@/authContext";
 import {
   Outlet,
   createRootRouteWithContext,
@@ -13,6 +14,7 @@ export const Route = createRootRouteWithContext<MyAuthContext>()({
 });
 
 function RootComponent() {
+  const { session } = useAuth();
   return (
     <>
       <div className="p-2 py-4 flex justify-between">
@@ -24,14 +26,16 @@ function RootComponent() {
             New Expense
           </Link>
         </div>
-        <div className="avatar cursor-pointer">
-          <div className="w-8 rounded-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              alt="Tailwind-CSS-Avatar-component"
-            />
+        {session?.data?.user && (
+          <div className="avatar cursor-pointer">
+            <div className="w-8 rounded-full">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                alt="Tailwind-CSS-Avatar-component"
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <hr />
       <div className="flex flex-col items-center h-screen">
