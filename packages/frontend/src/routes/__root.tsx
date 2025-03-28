@@ -30,7 +30,7 @@ function RootComponent() {
           <div className="avatar cursor-pointer">
             <div className="w-8 rounded-full">
               <img
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                src={session?.data?.user?.image}
                 alt="Tailwind-CSS-Avatar-component"
               />
             </div>
