@@ -2,7 +2,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 import { authClient } from "./lib/auth-client";
 import { ReactNode } from "@tanstack/react-router";
 
-type getSession = Awaited<ReturnType<typeof authClient.getSession>>;
+export type getSession = Awaited<ReturnType<typeof authClient.getSession>>;
 type googleSignIn = Awaited<ReturnType<typeof authClient.signIn.social>>;
 
 type AuthContextType = {

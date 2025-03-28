@@ -1,4 +1,4 @@
-import { newExpense } from "@/pages/newExpense";
+import { type newExpense } from "@/pages/newExpense";
 
 type sendRequestOptions<T> = {
   url: string;
@@ -10,6 +10,7 @@ const sendRequest = async <T,>(options: sendRequestOptions<T>) => {
 
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/${url}`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -23,7 +24,7 @@ const sendRequest = async <T,>(options: sendRequestOptions<T>) => {
     );
   }
 
-  return response;
+  return response.json();
 };
 
 export async function addExpense(options: newExpense) {

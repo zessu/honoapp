@@ -22,12 +22,15 @@ export const NewExpense = () => {
 
   const { isPending, isError, isSuccess, mutate } = useMutation({
     mutationFn: addExpense,
-    onSuccess: () => console.log("new expense created"),
+    onSuccess: (data) => {
+      console.log(data);
+    },
     onError: (error) => console.log(error),
+    onMutate: (data) =>
+      console.log("called on mutate, optimistic updates here"),
   });
 
   const onSubmit: SubmitHandler<newExpense> = (data) => {
-    console.log(data);
     mutate({ ...data });
   };
 
@@ -70,7 +73,7 @@ export const NewExpense = () => {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span>Expense Tracked!</span>
+              <span>Expense Added!</span>
             </div>
           )}
           <div className="flex flex-col items-center gap-2 mt-10">
