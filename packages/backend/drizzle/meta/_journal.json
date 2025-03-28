@@ -8,6 +8,13 @@
       "when": 1742582678166,
       "tag": "0000_lonely_princess_powerful",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1743162984639,
+      "tag": "0001_lively_rocket_racer",
+      "breakpoints": true
     }
   ]
 }
